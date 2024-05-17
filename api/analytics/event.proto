@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "diploma/analytics-exporter/pkg/api/analytics";
+
+message Event {
+  string ID = 1;
+  string Type = 2 [
+    json_name = "type"
+  ];
+  string URL = 3 [
+    json_name = "url"
+  ];
+  string Domain = 4 [
+    json_name = "domain"
+  ];
+  string Referrer = 5 [
+    json_name = "referrer"
+  ];
+  string Browser = 6;
+  string OS = 7;
+  Device Device = 8;
+  string HashedVisit = 10;
+
+  map<string, string> Meta = 20 [
+    json_name = "meta"
+  ];
+  map<string, string> Props = 21 [
+    json_name = "props"
+  ];
+  google.protobuf.Timestamp Timestamp = 22;
+}
+
+message Device {
+  oneof Device {
+    bool Tablet = 1;
+    bool Mobile = 2;
+    bool Desktop = 3;
+    bool Bot = 4;
+  }
+}
+
+message Events {
+  repeated Event Events = 1;
+}

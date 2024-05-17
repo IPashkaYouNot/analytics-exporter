@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "api/analytics/event.proto";
+import "api/google/api/annotations.proto";
+
+option go_package = "diploma/analytics-exporter/pkg/api/analytics";
+
+// Services
+service Analytics {
+  rpc CreateEvent(Event) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/event",
+      body: "*"
+    };
+  }
+}
